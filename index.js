@@ -209,8 +209,8 @@ client.on('interactionCreate', async (interaction) => {
                     fromUsername: interaction.user.tag,
                     toUserId: targetUser.id,
                     toUsername: targetUser.tag,
-                    rating: rating,
-                    review: reason,
+                    stars: rating,
+                    comment: reason,
                     imageUrl: imageUrl,
                     createdAt: new Date().toISOString()
                 });
@@ -332,3 +332,4 @@ process.on('unhandledRejection', error => {
 
 // Iniciar el bot
 client.login(process.env.DISCORD_TOKEN);
+

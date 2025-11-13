@@ -109,7 +109,6 @@ async function setupVouchPanel(channel) {
         .setColor('#FF1493')
         .setTitle('✨ LEAVE A VOUCH')
         .setDescription('━━━━━━━━━━━━━━━━━━━━━━━━━')
-        .setThumbnail('https://cdn.discordapp.com/attachments/1309783318031503384/1436578775121920100/fau_get_2.gif')
         .addFields(
             {
                 name: '\n💬 How to Leave a Vouch',
@@ -137,7 +136,7 @@ async function setupVouchPanel(channel) {
                 inline: false
             }
         )
-        .setImage('https://cdn.discordapp.com/attachments/1309783318031503384/1436578775121920100/fau_get_2.gif')
+        .setImage('https://cdn.discordapp.com/attachments/1309783318031503384/1438385544043430030/banner_factory.gif?ex=6916b06d&is=69155eed&hm=cc3d8842a292692983ed0ccf4114f3baf53681b386260983a513862de799d17e&')
         .setFooter({ text: '⭐ Vouch System • Build Trust' })
         .setTimestamp();
 
@@ -226,8 +225,8 @@ client.on('interactionCreate', async (interaction) => {
                         name: `Vouch for ${targetUser.username}`,
                         iconURL: targetUser.displayAvatarURL()
                     })
-                    .setThumbnail(targetUser.displayAvatarURL())
-                    .setDescription(`**Vouch**\n\n� **Seller:**\n${targetUser} (${targetUser.username})\n\n⭐ **Rating:**\n${getStars(rating)}\n\n💬 **Reason:**\n${reason}`)
+                    .setThumbnail(interaction.user.displayAvatarURL())
+                    .setDescription(`**Vouch**\n\n💼 **Seller:**\n${targetUser} (${targetUser.username})\n\n⭐ **Rating:**\n${getStars(rating)}\n\n💬 **Reason:**\n${reason}`)
                     .addFields(
                         {
                             name: '\n**User Information**',
@@ -236,7 +235,7 @@ client.on('interactionCreate', async (interaction) => {
                         }
                     )
                     .setFooter({ 
-                        text: `${interaction.guild.name.toUpperCase()} VOUCHES`,
+                        text: `FACTORY BOOSTS VOUCHES`,
                         iconURL: interaction.guild.iconURL()
                     })
                     .setTimestamp();
@@ -251,6 +250,9 @@ client.on('interactionCreate', async (interaction) => {
                         // Si no es una URL válida, ignorar
                         console.log('Invalid image URL provided');
                     }
+                } else {
+                    // Si no hay imagen personalizada, agregar el banner de Factory Boosts
+                    vouchEmbed.setImage('https://cdn.discordapp.com/attachments/1309783318031503384/1438385544043430030/banner_factory.gif?ex=6916b06d&is=69155eed&hm=cc3d8842a292692983ed0ccf4114f3baf53681b386260983a513862de799d17e&');
                 }
 
                 // Enviar al canal de vouches
@@ -288,9 +290,9 @@ client.on('interactionCreate', async (interaction) => {
                 const vouchCount = vouchCounts.get(targetUser.id) || 0;
 
                 const statsEmbed = new EmbedBuilder()
-                    .setColor('#00D9A3')
+                    .setColor('#FF1493')
                     .setTitle('📊 Vouch Statistics')
-                    .setThumbnail(targetUser.displayAvatarURL())
+                    .setImage('https://cdn.discordapp.com/attachments/1309783318031503384/1438385544043430030/banner_factory.gif?ex=6916b06d&is=69155eed&hm=cc3d8842a292692983ed0ccf4114f3baf53681b386260983a513862de799d17e&')
                     .addFields(
                         { 
                             name: '👤 User', 
@@ -303,7 +305,7 @@ client.on('interactionCreate', async (interaction) => {
                             inline: true 
                         }
                     )
-                    .setFooter({ text: `User ID: ${targetUser.id}` })
+                    .setFooter({ text: `FACTORY BOOSTS • User ID: ${targetUser.id}` })
                     .setTimestamp();
 
                 await interaction.reply({ embeds: [statsEmbed], ephemeral: true });

@@ -50,9 +50,9 @@ const commands = [
                 required: true
             },
             {
-                name: 'image',
-                description: 'Image URL (optional screenshot/proof)',
-                type: 3, // STRING type
+                name: 'proof',
+                description: 'Upload a screenshot/proof image (optional)',
+                type: 11, // ATTACHMENT type
                 required: false
             }
         ]
@@ -112,7 +112,7 @@ async function setupVouchPanel(channel) {
         .addFields(
             {
                 name: '\n💬 How to Leave a Vouch',
-                value: 'Use the `/vouch` command to leave a review!\n\n**Example:**\n`/vouch user:@Username rating:5 reason:Bought Boost Tool all worked flawlessly`\n\n**With Screenshot:**\n`/vouch user:@Username rating:5 reason:Great service! image:https://i.imgur.com/example.png`',
+                value: 'Use the `/vouch` command to leave a review!\n\n**Example:**\n`/vouch user:@Username rating:5 reason:Bought Boost Tool all worked flawlessly`\n\n**With Screenshot:**\n`/vouch user:@Username rating:5 reason:Great service! proof:[Upload Image]`',
                 inline: false
             },
             {
@@ -127,7 +127,7 @@ async function setupVouchPanel(channel) {
             },
             {
                 name: '\n📸 Adding Screenshots',
-                value: 'You can add a screenshot/proof by providing an image URL in the `image` field.\nSupported: Direct image links (imgur, discord CDN, etc.)',
+                value: 'You can add a screenshot/proof by uploading an image directly in the `proof` field.\nSupported: PNG, JPG, JPEG, GIF, WebP',
                 inline: false
             },
             {
@@ -178,7 +178,8 @@ client.on('interactionCreate', async (interaction) => {
                 const targetUser = interaction.options.getUser('user');
                 const rating = interaction.options.getInteger('rating');
                 const reason = interaction.options.getString('reason');
-                const imageUrl = interaction.options.getString('image');
+                const attachment = interaction.options.getAttachment('proof');
+                const imageUrl = attachment ? attachment.url : null;
 
                 // Verificar que no se haga vouch a sí mismo
                 if (targetUser.id === interaction.user.id) {
@@ -210,7 +211,7 @@ client.on('interactionCreate', async (interaction) => {
                     toUsername: targetUser.tag,
                     stars: rating,
                     comment: reason,
-                    imageUrl: imageUrl,
+                    imageUrl: imageUrl || null,
                     createdAt: new Date().toISOString()
                 });
 
@@ -242,14 +243,7 @@ client.on('interactionCreate', async (interaction) => {
 
                 // Agregar imagen si se proporcionó
                 if (imageUrl) {
-                    try {
-                        // Validar que sea una URL válida
-                        new URL(imageUrl);
-                        vouchEmbed.setImage(imageUrl);
-                    } catch (error) {
-                        // Si no es una URL válida, ignorar
-                        console.log('Invalid image URL provided');
-                    }
+                    vouchEmbed.setImage(imageUrl);
                 }
 
                 // Enviar al canal de vouches

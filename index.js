@@ -250,9 +250,6 @@ client.on('interactionCreate', async (interaction) => {
                         // Si no es una URL válida, ignorar
                         console.log('Invalid image URL provided');
                     }
-                } else {
-                    // Si no hay imagen personalizada, agregar el banner de Factory Boosts
-                    vouchEmbed.setImage('https://cdn.discordapp.com/attachments/1309783318031503384/1438385544043430030/banner_factory.gif?ex=6916b06d&is=69155eed&hm=cc3d8842a292692983ed0ccf4114f3baf53681b386260983a513862de799d17e&');
                 }
 
                 // Enviar al canal de vouches
@@ -292,7 +289,6 @@ client.on('interactionCreate', async (interaction) => {
                 const statsEmbed = new EmbedBuilder()
                     .setColor('#FF1493')
                     .setTitle('📊 Vouch Statistics')
-                    .setImage('https://cdn.discordapp.com/attachments/1309783318031503384/1438385544043430030/banner_factory.gif?ex=6916b06d&is=69155eed&hm=cc3d8842a292692983ed0ccf4114f3baf53681b386260983a513862de799d17e&')
                     .addFields(
                         { 
                             name: '👤 User', 
